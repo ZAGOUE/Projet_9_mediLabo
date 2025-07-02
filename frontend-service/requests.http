@@ -1,0 +1,9 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+
+### Liste des patients (authentification basique)
+GET http://localhost:8082/patients
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Accept: text/html

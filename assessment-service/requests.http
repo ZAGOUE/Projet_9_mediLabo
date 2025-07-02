@@ -1,0 +1,8 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+
+### Évaluation du risque de diabète pour le patient 1
+GET http://localhost:8083/assessments?patientId=1
+Authorization: Basic YWRtaW46YWRtaW4xMjM=

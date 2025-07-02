@@ -1,0 +1,20 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: assessment-service
+  security:
+    user:
+      name: admin
+      password: admin123
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+
+logging:
+  level:
+    com.assessment.proxy: DEBUG

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail du Patient</title>
+    <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="header-row">
+        <a class="back-link" href="/patients">&larr; Retour à la liste</a>
+        <h2>Informations du Patient</h2>
+        <span style="width:100px"></span> <!-- espaceur pour centrer le titre -->
+    </div>
+    <ul>
+        <li><strong>Nom :</strong> <span th:text="${patient.nom}">Nom</span></li>
+        <li><strong>Prénom :</strong> <span th:text="${patient.prenom}">Prénom</span></li>
+        <li><strong>Date de naissance :</strong> <span th:text="${patient.dateDeNaissance}">Date</span></li>
+        <li><strong>Genre :</strong> <span th:text="${patient.genre}">Genre</span></li>
+        <li><strong>Adresse :</strong> <span th:text="${patient.adresse}">Adresse</span></li>
+        <li><strong>Téléphone :</strong> <span th:text="${patient.telephone}">Téléphone</span></li>
+    </ul>
+    <div class="section-title">Modifier les informations du patient</div>
+    <form th:action="@{'/patients/' + ${patient.id} + '/edit'}" method="post" style="margin-bottom:24px;">
+        <label>
+            Nom :
+            <input type="text" name="nom" th:value="${patient.nom}" required/>
+        </label><br><br>
+        <label>
+            Prénom :
+            <input type="text" name="prenom" th:value="${patient.prenom}" required/>
+        </label><br><br>
+        <label>
+            Date de naissance :
+            <input type="date" name="dateDeNaissance" th:value="${patient.dateDeNaissance}" required/>
+        </label><br><br>
+        <label>
+            Genre :
+            <input type="text" name="genre" th:value="${patient.genre}" required/>
+        </label><br><br>
+        <label>
+            Adresse :
+            <input type="text" name="adresse" th:value="${patient.adresse}" required/>
+        </label><br><br>
+        <label>
+            Téléphone :
+            <input type="text" name="telephone" th:value="${patient.telephone}" required/>
+        </label><br><br>
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+
+    <div class="section-title">Notes médicales</div>
+    <ul>
+        <li th:each="note : ${notes}" th:text="${note.contenu}">Exemple de note médicale...</li>
+        <li th:if="${#lists.isEmpty(notes)}">Aucune note médicale pour ce patient.</li>
+    </ul>
+
+    <!-- Formulaire d'ajout de note -->
+    <form th:action="@{'/patients/' + ${patient.id} + '/notes'}" method="post" style="margin-top: 18px;">
+        <label for="contenu">Ajouter une note :</label><br>
+        <textarea id="contenu" name="contenu" rows="2" style="width:100%;" required></textarea><br>
+        <button type="submit" style="margin-top:8px;">Ajouter la note</button>
+    </form>
+
+    <div class="section-title">Risque de Diabète</div>
+    <p th:if="${assessment != null}" th:text="${assessment}"></p>
+    <p th:if="${assessment == null}">Aucune évaluation disponible.</p>
+</div>
+</body>
+</html>
