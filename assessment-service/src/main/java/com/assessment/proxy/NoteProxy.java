@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "note-service", url = "http://localhost:8082") // port du service notes
+@FeignClient(name = "note-service", url = "${note.service.url}")
 public interface NoteProxy {
     @GetMapping("/notes/patient/{patientId}")
     List<Note> getNotesByPatientId(@PathVariable("patientId") Long patientId);

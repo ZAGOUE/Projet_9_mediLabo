@@ -15,8 +15,8 @@ public class PatientServiceProxy {
 
     private final RestTemplate restTemplate;
 
-    @Value("${patient.service.url}")
-    private String patientServiceUrl;
+    @Value("${gateway.url}")
+    private String gatewayUrl;  // <-- nom explicite
 
     public PatientServiceProxy(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -32,7 +32,7 @@ public class PatientServiceProxy {
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Patient[]> response = restTemplate.exchange(
-                patientServiceUrl + "/patients",
+                gatewayUrl + "/patients",
                 HttpMethod.GET,
                 entity,
                 Patient[].class
@@ -51,7 +51,7 @@ public class PatientServiceProxy {
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Patient> response = restTemplate.exchange(
-                patientServiceUrl + "/patients/" + id,
+                gatewayUrl + "/patients/" + id,
                 HttpMethod.GET,
                 entity,
                 Patient.class
@@ -72,7 +72,7 @@ public class PatientServiceProxy {
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
 
         restTemplate.exchange(
-                patientServiceUrl + "/patients/" + id,
+                gatewayUrl + "/patients/" + id,
                 HttpMethod.PUT,
                 entity,
                 Void.class

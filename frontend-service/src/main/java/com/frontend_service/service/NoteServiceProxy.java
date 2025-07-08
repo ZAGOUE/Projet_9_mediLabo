@@ -14,14 +14,14 @@ public class NoteServiceProxy {
 
     private final RestTemplate restTemplate;
 
-    @Value("${note.service.url}")
-    private String noteServiceUrl;
+    @Value("${gateway.url}")
+    private String gatewayUrl; // Nouveau nom clair !
 
     public NoteServiceProxy(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public List<Note> getNotesByPatientId(Long patientId) {
+    public List<Note> getNotesByPatientId(String patientId) {
         HttpHeaders headers = new HttpHeaders();
         // Ajoute l’authentification si nécessaire !
         String auth = "admin:admin123";
@@ -31,7 +31,7 @@ public class NoteServiceProxy {
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Note[]> response = restTemplate.exchange(
-                noteServiceUrl + "/notes/patient/" + patientId,
+                gatewayUrl + "/notes/patient/" + patientId,
                 HttpMethod.GET,
                 entity,
                 Note[].class
@@ -40,7 +40,7 @@ public class NoteServiceProxy {
         return notes != null ? Arrays.asList(notes) : List.of();
     }
 
-    public Note addNoteForPatient(Long patientId, String contenu) {
+    public Note addNoteForPatient(String patientId, String contenu) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String auth = "admin:admin123";
@@ -52,7 +52,7 @@ public class NoteServiceProxy {
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
 
         ResponseEntity<Note> response = restTemplate.exchange(
-                noteServiceUrl + "/notes/patient/" + patientId,
+                gatewayUrl + "/notes/patient/" + patientId,
                 HttpMethod.POST,
                 entity,
                 Note.class

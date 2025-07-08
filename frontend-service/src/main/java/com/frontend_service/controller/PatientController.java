@@ -31,10 +31,10 @@ public class PatientController {
     @GetMapping("/{id}")
     public String getPatientDetail(@PathVariable Long id, Model model) {
         Patient patient = patientServiceProxy.getPatientById(id);
-        List<Note> notes = noteServiceProxy.getNotesByPatientId(id);
+        List<Note> notes = noteServiceProxy.getNotesByPatientId(String.valueOf(id));
 
         // Récupère l'évaluation via le proxy assessment-service
-        String assessment = assessmentServiceProxy.getAssessment(id);
+        String assessment = assessmentServiceProxy.getAssessment(String.valueOf(id));
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", notes);
@@ -45,7 +45,7 @@ public class PatientController {
 
     @PostMapping("/{id}/notes") // <-- bon mapping
     public String addNote(@PathVariable Long id, @RequestParam String contenu) {
-        noteServiceProxy.addNoteForPatient(id, contenu); // <-- tu appelleras cette méthode (à faire !)
+        noteServiceProxy.addNoteForPatient(String.valueOf(id), contenu); //  tu appelleras cette méthode (à faire !)
         return "redirect:/patients/" + id;
     }
     @PostMapping("/{id}/edit")

@@ -10,14 +10,14 @@ public class AssessmentServiceProxy {
 
     private final RestTemplate restTemplate;
 
-    @Value("${assessment.service.url}")
-    private String assessmentServiceUrl;
+    @Value("${gateway.url}")
+    private String gatewayUrl;
 
     public AssessmentServiceProxy(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public String getAssessment(Long patientId) {
+    public String getAssessment(String patientId) {
         HttpHeaders headers = new HttpHeaders();
         String auth = "admin:admin123";
         String encodedAuth = java.util.Base64.getEncoder().encodeToString(auth.getBytes());
@@ -26,7 +26,7 @@ public class AssessmentServiceProxy {
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         // URL attendue par assessment-service (adapte si besoin)
-        String url = assessmentServiceUrl + "/assessments?patientId=" + patientId;
+        String url = gatewayUrl + "/assessments?patientId=" + patientId;
 
         ResponseEntity<String> response = restTemplate.exchange(
                 url,
