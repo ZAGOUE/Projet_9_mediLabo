@@ -1,0 +1,113 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### Ajouter une note
+POST http://localhost:8082/notes/patient/1
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "contenu": "Le patient a déclaré une fatigue inhabituelle depuis 3 jours."
+}
+### test d'ajout pour suppression
+POST http://localhost:8082/notes/patient/1
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+"contenu": "Nouvelle note à tester la suppression."
+}
+
+
+### Récupérer les notes
+GET http://localhost:8082/notes/patient/1
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+@no-cookie-jar
+
+### Notes pour patient 1
+POST http://localhost:8082/notes/patient/1
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il se sent très bien. Poids égal ou inférieur au poids recommandé." }
+
+### Notes pour patient 2
+POST http://localhost:8082/notes/patient/2
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il ressent beaucoup de stress au travail. Il se plaint également que son audition est anormale dernièrement." }
+
+### Notes pour patient 2
+POST http://localhost:8082/notes/patient/2
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois. Il remarque également que son audition continue d'être anormale." }
+
+### Notes pour patient 3
+POST http://localhost:8082/notes/patient/3
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il fume depuis peu." }
+
+### Notes pour patient 3
+
+POST http://localhost:8082/notes/patient/3
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il est fumeur et qu'il a cessé de fumer l'année dernière. Il se plaint également de crises d’apnée respiratoire anormales. Tests de laboratoire indiquant un taux de cholestérol LDL élevé." }
+
+### Notes pour patient 4
+POST http://localhost:8082/notes/patient/4
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il lui est devenu difficile de monter les escaliers. Il se plaint également d’être essoufflé. Tests de laboratoire indiquant que les anticorps sont élevés. Réaction aux médicaments." }
+
+### Notes pour patient 4
+POST http://localhost:8082/notes/patient/4
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps." }
+
+### Notes pour patient 4
+POST http://localhost:8082/notes/patient/4
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Le patient déclare avoir commencé à fumer depuis peu. Hémoglobine A1C supérieure au niveau recommandé." }
+
+### Notes pour patient 4
+POST http://localhost:8082/notes/patient/4
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{ "contenu": "Taille, Poids, Cholestérol, Vertige et Réaction." }
+
+### Forcer création note_db par insertion
+POST http://localhost:8082/notes/patient/1
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "contenu": "Déclencheur automatique de la base note_db via note-service"
+}
+
+### Supprimer une note par son ID
+DELETE http://localhost:8082/notes/686a72f7809867966ec8613c
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Lister toutes les notes
+GET http://localhost:8082/notes
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+
+### Toutes les notes
+GET http://localhost:8082/notes
+Authorization: Basic YWRtaW46YWRtaW4xMjM=

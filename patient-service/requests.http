@@ -1,0 +1,39 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### Récupérer tous les patients (GET)
+GET http://localhost:8081/patients
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Récupérer un patient par ID (GET)
+GET http://localhost:8081/patients/1
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Ajouter un patient (POST)
+POST http://localhost:8081/patients
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "prenom": "Alice",
+  "nom": "Durand",
+  "dateDeNaissance": "1980-05-12",
+  "genre": "F",
+  "adresse": "12 rue Lafayette",
+  "telephone": "0612345678"
+}
+
+### Mettre à jour un patient (PUT)
+PUT http://localhost:8081/patients/1
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "prenom": "Test",
+  "nom": "TestNone",
+  "dateDeNaissance": "1966-12-31",
+  "genre": "F",
+  "adresse": "1 Brookside St",
+  "telephone": "0999999999"
+}
