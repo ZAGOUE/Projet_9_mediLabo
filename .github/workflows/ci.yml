@@ -2,17 +2,30 @@ name: CI/CD Medilabo Microservices
 
 on:
   push:
-    branches: [ "master"]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master"]
+    branches: [ "master" ]
 
 jobs:
 
   # -------------------------
-  # 1. Build & test patient-service
+  # 1. Build & test patient-service (MySQL)
   # -------------------------
   build-test-patient-service:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: admin567
+          MYSQL_DATABASE: diabetes_db
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -padmin567"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     defaults:
       run:
         working-directory: ./patient-service
@@ -74,10 +87,20 @@ jobs:
           tags: zagoue/patient-service:latest
 
   # -------------------------
-  # 2. Build & test note-service
+  # 2. Build & test note-service (MongoDB)
   # -------------------------
   build-test-note-service:
     runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     defaults:
       run:
         working-directory: ./note-service
@@ -139,10 +162,32 @@ jobs:
           tags: zagoue/note-service:latest
 
   # -------------------------
-  # 3. Build & test assessment-service
+  # 3. Build & test assessment-service (MongoDB & MySQL si besoin)
   # -------------------------
   build-test-assessment-service:
     runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: admin567
+          MYSQL_DATABASE: diabetes_db
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -padmin567"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     defaults:
       run:
         working-directory: ./assessment-service
@@ -204,7 +249,7 @@ jobs:
           tags: zagoue/assessment-service:latest
 
   # -------------------------
-  # 4. Build & test gateway-service
+  # 4. Build & test gateway-service (pas de DB)
   # -------------------------
   build-test-gateway-service:
     runs-on: ubuntu-latest
@@ -269,7 +314,7 @@ jobs:
           tags: zagoue/gateway-service:latest
 
   # -------------------------
-  # 5. Build & test frontend-service
+  # 5. Build & test frontend-service (pas de DB)
   # -------------------------
   build-test-frontend-service:
     runs-on: ubuntu-latest
@@ -334,7 +379,7 @@ jobs:
           tags: zagoue/frontend-service:latest
 
   # -------------------------
-  # 6. Stack test avec Docker Compose
+  # 6. Stack test avec Docker Compose (doit lancer les DB !)
   # -------------------------
   stack-integration-test:
     runs-on: ubuntu-latest
@@ -358,4 +403,3 @@ jobs:
           docker compose logs
       - name: Tear down
         run: docker compose down
-
