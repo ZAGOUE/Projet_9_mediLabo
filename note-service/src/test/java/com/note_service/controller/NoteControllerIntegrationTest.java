@@ -11,6 +11,7 @@ import org.springframework.http.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,7 +46,7 @@ public class NoteControllerIntegrationTest {
 
     @Test
     public void testAddNoteForPatient() {
-        String patientId = "123"; // adapte selon un patient existant ou mocké
+        String patientId = UUID.randomUUID().toString(); // patientId unique à chaque run
 
         Map<String, String> body = Map.of("contenu", "Note importante pour test");
 
@@ -61,4 +62,5 @@ public class NoteControllerIntegrationTest {
         assertThat(createdNote.getPatientId()).isEqualTo(patientId);
         assertThat(createdNote.getContenu()).isEqualTo("Note importante pour test");
     }
+
 }
