@@ -37,3 +37,17 @@ Authorization: Basic YWRtaW46YWRtaW4xMjM=
   "adresse": "1 Brookside St",
   "telephone": "0999999999"
 }
+
+### Mettre à jour un patient (PUT) 2
+PUT http://localhost:8081/patients/2
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "prenom": "Test",
+  "nom": "TestNone",
+  "dateDeNaissance": "1966-12-31",
+  "genre": "F",
+  "adresse": "1 Brookside St",
+  "telephone": "0999999999"
+}
