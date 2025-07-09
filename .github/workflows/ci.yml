@@ -61,8 +61,6 @@ jobs:
           java-version: '17'
       - name: Run tests and generate reports
         run: mvn verify
-      - name: List target content
-        run: ls -l target/site/jacoco
       - name: Archive JaCoCo report
         uses: actions/upload-artifact@v4
         with:
@@ -126,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: note-service-jar
-          path: target/*.jar
+          path: note-service/target/*.jar
 
   coverage-note-service:
     runs-on: ubuntu-latest
@@ -157,12 +155,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-note-service
-          path: target/site/jacoco/
+          path: note-service/target/site/jacoco/
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/site/jacoco/jacoco.xml
+          files: note-service/target/site/jacoco/jacoco.xml
           flags: unittests
           name: codecov-upload
           fail_ci_if_error: true
@@ -229,7 +227,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: assessment-service-jar
-          path: target/*.jar
+          path: assessment-service/target/*.jar
 
   coverage-assessment-service:
     runs-on: ubuntu-latest
@@ -250,12 +248,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-assessment-service
-          path: target/site/jacoco/
+          path: assessment-service/target/site/jacoco/
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/site/jacoco/jacoco.xml
+          files: assessment-service/target/site/jacoco/jacoco.xml
           flags: unittests
           name: codecov-upload
           fail_ci_if_error: true
@@ -299,7 +297,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gateway-service-jar
-          path: target/*.jar
+          path: gateway-service/target/*.jar
 
   coverage-gateway-service:
     runs-on: ubuntu-latest
@@ -320,12 +318,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-gateway-service
-          path: target/site/jacoco/
+          path: gateway-service/target/site/jacoco/
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/site/jacoco/jacoco.xml
+          files: gateway-service/target/site/jacoco/jacoco.xml
           flags: unittests
           name: codecov-upload
           fail_ci_if_error: true
@@ -369,7 +367,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-service-jar
-          path: target/*.jar
+          path: frontend-service/target/*.jar
 
   coverage-frontend-service:
     runs-on: ubuntu-latest
@@ -390,12 +388,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-frontend-service
-          path: target/site/jacoco/
+          path: frontend-service/target/site/jacoco/
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/site/jacoco/jacoco.xml
+          files: frontend-service/target/site/jacoco/jacoco.xml
           flags: unittests
           name: codecov-upload
           fail_ci_if_error: true
