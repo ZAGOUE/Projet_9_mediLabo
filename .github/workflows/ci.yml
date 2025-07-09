@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: patient-service-jar
-          path: target/*.jar
+          path: target/patient-service-*.jar
 
   coverage-patient-service:
     runs-on: ubuntu-latest

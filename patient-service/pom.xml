@@ -107,6 +107,9 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.11</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory> <!-- Explicite -->
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
