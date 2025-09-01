@@ -1,5 +1,6 @@
 package com.frontend_service.service;
 import com.frontend_service.model.Note;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -7,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
@@ -71,12 +73,13 @@ class NoteServiceProxyTest {
                 argThat((HttpEntity<String> entity) -> {
                     HttpHeaders h = entity.getHeaders();
                     String authHeader = h.getFirst(HttpHeaders.AUTHORIZATION);
-                    String contentType = h.getContentType().toString();
+                    String contentType = Objects.requireNonNull(h.getContentType()).toString();
                     String body = entity.getBody();
                     // Vérifie l’entête d’authentification et le content-type
-                    return authHeader != null && authHeader.startsWith("Basic ")
-                            && contentType.equals(MediaType.APPLICATION_JSON_VALUE)
-                            && body.contains("Nouveau contenu");
+                    if (authHeader == null || !authHeader.startsWith("Basic ")
+                            || !contentType.equals(MediaType.APPLICATION_JSON_VALUE)) return false;
+                    Assertions.assertNotNull(body);
+                    return body.contains("Nouveau contenu");
                 }),
                 eq(Note.class)
         )).thenReturn(fakeResponse);

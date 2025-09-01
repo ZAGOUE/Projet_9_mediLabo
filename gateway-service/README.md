@@ -1,6 +1,7 @@
 # Gateway Service
 
-Ce projet représente le **microservice de passerelle (Gateway)** de l'application de gestion de patients. Il agit comme un **point d'entrée unique** pour les autres microservices.
+Ce projet représente le **microservice de passerelle (Gateway)** de l'application de gestion de patients. 
+Il agit comme un **point d'entrée unique** pour les autres microservices.
 
 ---
 
@@ -17,7 +18,7 @@ Ce projet représente le **microservice de passerelle (Gateway)** de l'applicati
 ## Objectifs
 
 - Fournir une **passerelle centralisée** pour accéder aux différents microservices.
-- **Rediriger** les requêtes entrantes vers les bons services (`patient-service`, `note-service`, etc.).
+- **Rediriger** les requêtes entrantes vers les bons services (`patient-service`, `note-service`, `assessment-service`).
 - Appliquer une **authentification basique** pour sécuriser les accès.
 
 ---
@@ -47,9 +48,7 @@ spring:
           predicates:
             - Path=/assessments, /assessments/**
 
-# Sécurité basique pour test
-spring.security.user.name: admin
-spring.security.user.password: admin123
+
 
 ```
 
@@ -73,7 +72,7 @@ Content-Type: application/json
 
 ## Lancer le projet
 
-1. Assure-toi que tous les microservices en backend sont démarrés (`patient-service`, `note-service`, etc.).
+1. S'assurer que tous les microservices en backend sont démarrés (`patient-service`, `note-service`, `assessment-service`).
 2. Démarre `gateway-service` :
 
 ```bash

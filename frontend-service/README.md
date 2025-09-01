@@ -2,8 +2,10 @@
 # Frontend Service – Projet 9 Medilabo Solutions
 
 Ce projet est le **frontend** Spring Boot de l’application Medilabo Solutions.  
-Il fournit une interface web minimaliste (pages HTML ou Thymeleaf) permettant de visualiser les données de patients, d’ajouter des notes médicales, et de consulter l’évaluation du risque de diabète.  
-Le frontend interagit avec les microservices via le **gateway** et propose une authentification HTTP Basic (en mémoire) pour la démo.
+Il fournit une interface web minimaliste (pages HTML ou Thymeleaf) permettant de visualiser 
+les données de patients, d’ajouter des notes médicales, et de consulter l’évaluation du risque de diabète.  
+Le frontend interagit avec les microservices via le **gateway** et propose une authentification HTTP Basic (en mémoire) 
+pour la démo.
 
 ---
 
@@ -24,12 +26,12 @@ Le frontend interagit avec les microservices via le **gateway** et propose une a
 - **Maven**
 
 - Accès au réseau interne (pour contacter les autres microservices et le gateway)
-- Le backend doit être déjà lancé (gateway, patient-service, note-service, assessment-service, etc.)
+- Le backend doit être déjà lancé (gateway, patient-service, note-service, assessment-service,)
 
 ### Lancement
 
 Le service démarre par défaut sur [http://localhost:8084](http://localhost:8084)
-(Modifie le port dans `application.properties` si besoin.)
+
 
 ### Accès à l’interface
 
@@ -41,7 +43,7 @@ Le service démarre par défaut sur [http://localhost:8084](http://localhost:808
 ## 3. Utilisateurs de démo
 
 Les identifiants sont définis dans la classe `SecurityConfig`.
-Exemple :
+
 
 | Nom d'utilisateur | Mot de passe | Rôle  |
 | ----------------- | ------------ | ----- |
@@ -55,8 +57,8 @@ Exemple :
 ```
 frontend-service/
 ├── src/main/java/com/frontend_service/
-│   ├── controller/         # Contrôleurs Web (Thymeleaf ou REST)
-│   ├── model/              # Modèles de données Patient, Note, etc.
+│   ├── controller/         # Contrôleurs Web 
+│   ├── model/              # Modèles de données Patient, Note
 │   ├── proxy/              # Feign clients vers les microservices
 │   ├── security/           # Config Spring Security
 │   └── FrontendServiceApplication.java
@@ -71,24 +73,29 @@ frontend-service/
 
 ## 5. Configuration
 
-Les URLs des microservices sont déclarées dans `application.properties` ou via le **gateway**.
+Les URLs des microservices sont déclarées dans `application.properties`.
 
-Exemple de configuration :
+
 
 ```properties
-server.port=8084
+spring.application.name=frontend-service
+patient.service.url=http://localhost:8081
+note.service.url=http://localhost:8082
+assessment.service.url=http://localhost:8083
 gateway.url=http://localhost:8080
+
+server.port=8084
 ```
 
 ---
 
 ## 6. Appels aux microservices
 
-Les communications entre le frontend et les autres services s’effectuent via des **proxies Feign** ou via RestTemplate.
+Les communications entre le frontend et les autres services s’effectuent via des **proxies Feign**.
 
-* Patient Service : CRUD des patients
-* Note Service : Ajout, édition et suppression de notes médicales
-* Assessment Service : Évaluation du risque de diabète
+* PatientServiceProxy: CRUD des patients
+* NoteServiceProxy : Ajout, édition et suppression de notes médicales
+* AssessmentServiceProxy : Évaluation du risque de diabète
 
 ---
 

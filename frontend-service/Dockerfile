@@ -12,13 +12,13 @@ RUN chmod +x mvnw
 # Téléchargement des dépendances
 RUN ./mvnw dependency:go-offline
 
-# Copie des sources
+# Copie le code source
 COPY src src
 
-# Build de l'application
+# Build de l'application en sautant les tests unitaires
 RUN ./mvnw clean package -DskipTests
 
-# Étape 2 : Image légère pour exécution
+# Étape 2 : Image légère pour exécution sans jdk
 FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app

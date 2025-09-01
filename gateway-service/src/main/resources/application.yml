@@ -18,6 +18,4 @@ spring:
           predicates:
             - Path=/assessments, /assessments/**
 
-# Sécurité basique pour test
-spring.security.user.name: admin
-spring.security.user.password: admin123
+

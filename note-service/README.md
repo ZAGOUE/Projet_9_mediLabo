@@ -30,13 +30,14 @@ Ce service fonctionne indépendamment des autres microservices.
 
 ## 🔐 Sécurité
 
-Tous les endpoints sont protégés par une authentification **HTTP Basic**.
+Tous les endpoints sont protégés par une authentification **HTTP Basic** dans `filterChain`.
 
 > Identifiants par défaut :
 > - Username : `admin`
 > - Password : `admin123`
-
 ---
+Les identifiants sont paramétrés dans `application.properties`
+
 
 ## 🌐 Endpoints REST
 

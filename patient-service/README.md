@@ -32,12 +32,54 @@ Il gère les **informations personnelles des patients** dans le cadre d’un sys
 
 ## 🔐 Sécurité
 
-L’accès aux endpoints REST est protégé par **Spring Security** avec une authentification **HTTP Basic**.
+L’accès aux endpoints REST est protégé par **Spring Security** avec une authentification **HTTP Basic**
+et un utilisateur en mémoire dans `filterChain`.
 
 > Identifiants par défaut (in-memory) :
 > - **Username** : `admin`
 > - **Password** : `admin123`
 
+```java 
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().authenticated() // Authentification obligatoire, Toute requête doit être authentifiée
+            )
+            .httpBasic(Customizer.withDefaults()) // On active le protocole HTTP Basic Auth
+            .csrf(AbstractHttpConfigurer::disable); // On désactive CSRF pour faciliter les appels API 
+
+        return http.build();
+    }
+    
+}
+```
+➡️ Un utilisateur nommé admin (mot de passe: admin123) est défini en mémoire, avec le rôle USER dans `userDetaisService`.
+
+```java
+
+@Bean
+public InMemoryUserDetailsManager userDetailsService() {
+UserDetails user = User.withUsername("admin")
+.password(passwordEncoder().encode("admin123"))
+.roles("USER")
+.build();
+return new InMemoryUserDetailsManager(user);
+}
+```
+---
+➡️ Le mot de passe est encodé avec l’algorithme BCrypt (recommandé pour la sécurité).
+```java
+
+@Bean
+public PasswordEncoder passwordEncoder() {
+return new BCryptPasswordEncoder();
+}
+````
 ---
 
 ## 🚀 Endpoints REST
